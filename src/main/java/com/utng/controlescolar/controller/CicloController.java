@@ -1,6 +1,7 @@
 package com.utng.controlescolar.controller;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.utng.controlescolar.model.Ciclo;
+import com.utng.controlescolar.model.CicloFiltroRequest;
 import com.utng.controlescolar.repository.Response;
 import com.utng.controlescolar.sevice.ICicloService;
 
@@ -25,7 +27,7 @@ import com.utng.controlescolar.sevice.ICicloService;
 @RestController
 @RequestMapping("/ciclo")
 public class CicloController {
-
+	
 	//creando objeto de la clase servise para obtener los metodos 
 	@Autowired
 	private ICicloService cicloService;
@@ -80,17 +82,17 @@ public class CicloController {
 	@PutMapping(path = "/actualizarCiclo",
 			produces = MediaType.APPLICATION_JSON_VALUE, 
 			consumes = MediaType.APPLICATION_JSON_VALUE) //post por que va a resivir
-	public ResponseEntity<Response<Ciclo>> actualizarCiclo (@RequestBody Ciclo ciclo){ //Requestbody es por que va a resivir //como consume y produce un json se pone el consumes y procuces "CIclo ciclo"
+	public ResponseEntity<Response<Ciclo>> actualizarCiclo (@RequestBody Ciclo ciclo ){ //Requestbody es por que va a resivir //como consume y produce un json se pone el consumes y procuces "CIclo ciclo"
 		
 		Response<Ciclo> response = cicloService.actualizaCiclo(ciclo);
 		
-		return new ResponseEntity<Response<Ciclo>> (response, HttpStatus.OK);
+		return new ResponseEntity<Response<Ciclo>> (response,HttpStatus.OK);
 		
 	}
-	@GetMapping(path = "/consultarPorNombreClave/{clave}/{nombre}", //esto hacee referencia a que solo uno
+	@GetMapping(path = "/consultarPorNombreClave/{nombre}", //esto hacee referencia a que solo uno
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response<Ciclo>> consultarPorNombreClave (@PathVariable("nombre") String nombre,
-			@PathVariable("clave") String clave){ // pathVariable = solo se mandara una variable el cual sera el id de solo un objeto
+	public ResponseEntity<Response<Ciclo>> consultarPorNombreClave (@PathVariable("nombre") String nombre, @PathVariable("clave") String clave
+){ // pathVariable = solo se mandara una variable el cual sera el id de solo un objeto
 		
 		
 		Response<Ciclo> response = cicloService.busquedaPorNombreClave(nombre, clave);
@@ -98,6 +100,19 @@ public class CicloController {
 		return new ResponseEntity<Response<Ciclo>> (response,HttpStatus.OK);
 		
 	}
+	@PostMapping(path = "/buscarCiclo", produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+			
+	public ResponseEntity<Response<Ciclo>> buscarCiclo (
+			@RequestBody CicloFiltroRequest filtro){
+				
+				Response<Ciclo> response = cicloService.buscarCiclo(filtro);
+				
+				return new ResponseEntity<Response<Ciclo>>(response,HttpStatus.OK);
+			
+	}
+	
+
 	
 //	@PostMapping(path = "/consultarPorNombreClave2",
 //			produces = MediaType.APPLICATION_JSON_VALUE, 

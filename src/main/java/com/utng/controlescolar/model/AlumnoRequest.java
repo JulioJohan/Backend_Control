@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AlumnoRequest {
+	private Integer id;
+	
 	private String expediente;
 
 	private String nombre;
@@ -18,7 +20,7 @@ public class AlumnoRequest {
 	
 	private String estatus;
 
-	//El id 
+
 	private Integer ciclo;
 
 }

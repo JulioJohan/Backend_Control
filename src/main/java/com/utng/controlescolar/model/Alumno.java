@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.sym.Name;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,6 +37,15 @@ public class Alumno implements Serializable{
   PRIMARY KEY (ID_ALUMNO),
   FOREIGN KEY (ID_CICLO) REFERENCES TBL_CICLO_ESCOLAR(ID_CICLO)
 ) ;
+	 */
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1152710620820540997L;
+
+	/**
+	 * 
 	 */
 
 	@Id//llave primaria
@@ -59,9 +71,10 @@ public class Alumno implements Serializable{
 	@Column(name = "ESTATUS")
 	private String estatus;
 	
-	@ManyToOne(fetch= FetchType.EAGER)//FK
-	@JoinColumn(name = "ID_CICLO")
-	private Ciclo ciclo;
+//	@ManyToOne(fetch= FetchType.EAGER)//FK
+//	@JoinColumn(name = "ID_CICLO")
+	@Column(name = "ID_CICLO")
+	private String ciclo;
 
 	
 	

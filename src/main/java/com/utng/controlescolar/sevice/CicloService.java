@@ -4,7 +4,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.utng.controlescolar.model.Ciclo;
+import com.utng.controlescolar.model.CicloFiltroRequest;
 import com.utng.controlescolar.repository.CicloRepository;
+import com.utng.controlescolar.repository.ConsultaFiltroRequest;
 import com.utng.controlescolar.repository.Response;
 
 //los servicios mandan llamar repositorios
@@ -12,6 +14,9 @@ import com.utng.controlescolar.repository.Response;
 @Service
 public class CicloService implements ICicloService {
 
+	@Autowired
+	private ConsultaFiltroRequest consultaCicloRepository;
+	
 	@Autowired
 	private CicloRepository cicloRepository;
 
@@ -132,11 +137,25 @@ public class CicloService implements ICicloService {
 	}
 	
 
+	
+
+	@Override
+	public Response<Ciclo> buscarCiclo(CicloFiltroRequest filtro) {
+		Response<Ciclo> response = new Response<Ciclo>();
+		
+		response = consultaCicloRepository.busquedaCiclo(filtro);
+		
+		return response;
+	}
+
 	@Override
 	public Response<Ciclo> buscarNombreOClave(String nombre, String clave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	
 	
 	 /*public Response<Ciclo> buscarNombreOClave(String nombre, String clave) {
 		EntityManagerFactory enitityManager = Persistence.createEntityManagerFactory("cap_control_escolar");
@@ -156,5 +175,6 @@ public class CicloService implements ICicloService {
 																		
 	    return entityManager.createQuery(query).getResultList();
 	}*/
+	
 
 }

@@ -1,6 +1,7 @@
 package com.utng.controlescolar.repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -32,14 +33,20 @@ public class DinamicoImplRepository implements IDinamicoService  {
 		
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Ciclo> query = cb.createQuery(Ciclo.class);
+
+        
         Root<Ciclo> ciclo = query.from(Ciclo.class);
         
         //Path obtener los campos
         Path<String> nombrePath = ciclo.get("nombre");
         Path<String> clavePath = ciclo.get("clave");
+//        Path<Date> fecha = ciclo.get("fechaFin");
         
+       
 
-        List<Predicate> predicates = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList<Predicate>();
+       
+        
         for (String nombre : nombres) {
             predicates.add(cb.like(nombrePath, nombre));
         }
@@ -48,8 +55,10 @@ public class DinamicoImplRepository implements IDinamicoService  {
         for (String clave : claves) {
             predicates.add(cb.like(clavePath, clave));
         }
+ 
         
-        
+           
+  
         
         query.select(ciclo)
             .where(cb.or(predicates.toArray(new Predicate[predicates.size()])));
@@ -63,4 +72,6 @@ public class DinamicoImplRepository implements IDinamicoService  {
         	return response;
 	}
 
-}
+
+	}
+

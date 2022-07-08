@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,8 @@ import com.utng.controlescolar.model.MateriaRequest;
 import com.utng.controlescolar.repository.Response;
 import com.utng.controlescolar.sevice.IAlumnoService;
 
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/alumno")
 public class AlumnoController {
@@ -39,7 +42,7 @@ public class AlumnoController {
 	@PostMapping(path = "/guardarAlumno",
 			produces = MediaType.APPLICATION_JSON_VALUE, 
 			consumes = MediaType.APPLICATION_JSON_VALUE) //post por que va a resivir
-	public ResponseEntity<Response <Alumno>> guardarAlumno (@RequestBody AlumnoRequest materia){ //Requestbody es por que va a resivir
+	public ResponseEntity<Response <Alumno>> guardarAlumno (@RequestBody Alumno materia){ //Requestbody es por que va a resivir
 		
 		//guardamos lo que mando objeto lo mque mando el usuario
 		Response<Alumno> response = alumnoService.guardarAlumno(materia);
@@ -60,7 +63,7 @@ public class AlumnoController {
 	@PutMapping(path = "/actualizarAlumno",
 			produces = MediaType.APPLICATION_JSON_VALUE, 
 			consumes = MediaType.APPLICATION_JSON_VALUE) //post por que va a resivir
-	public ResponseEntity<Response<Alumno>> actualizarAlumno (@RequestBody AlumnoRequest alumno){ //Requestbody es por que va a resivir //como consume y produce un json se pone el consumes y procuces "CIclo ciclo"
+	public ResponseEntity<Response<Alumno>> actualizarAlumno (@RequestBody Alumno alumno){ //Requestbody es por que va a resivir //como consume y produce un json se pone el consumes y procuces "CIclo ciclo"
 		
 		Response<Alumno> response = alumnoService.actualizarAlumno(alumno);
 		

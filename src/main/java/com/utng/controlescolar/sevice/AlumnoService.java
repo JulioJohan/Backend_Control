@@ -32,7 +32,6 @@ public class AlumnoService  implements IAlumnoService{
 	@Override
 	public Response<Alumno> consultarTodos() {
 		Response<Alumno> response = new Response<Alumno>();
-
 		List<Alumno> lista = alumnoRepository.findAll();
 		response.setCount(lista.size());
 		response.setList(lista);
@@ -86,77 +85,88 @@ public class AlumnoService  implements IAlumnoService{
 
 
 	@Override
-	public Response<Alumno> actualizarAlumno(AlumnoRequest alumno) {
+	public Response<Alumno> actualizarAlumno(Alumno alumno) {
 		Response<Alumno> response = new Response<Alumno>();
 		
-		Optional <Ciclo> optionalCiclo = cicloRepository.findById(alumno.getCiclo());
-		Ciclo ciclo = null;
-		Alumno alumno1 = null;
-		Alumno alumno2 = null;
-		
-		
-		if (optionalCiclo.isPresent()) {
-
-			ciclo = optionalCiclo.get();
-			alumno1 = new Alumno();
-			alumno1.setExpediente(alumno.getExpediente()); //convertir el objeto MateriaRequest en Materia
-			alumno1.setCiclo(ciclo);
-			alumno1.setNombre(alumno.getNombre());
-			alumno1.setCurp(alumno.getCurp());
-			alumno1.setGenero(alumno.getGenero());
-			alumno1.setCorreo(alumno.getCorreo());
-			alumno1.setEstatus(alumno.getEstatus());
-			
-			alumno2 = alumnoRepository.save(alumno1);
-			response.setStatus("OK");
-			response.setMensaje("Guardado correcto :3");
-			response.setData(alumno2);
-
-		} else {
-			
-			response.setStatus("ERROR");
-			response.setMensaje("Ciclo no existente :c");
-			response.setData(null);
-
-		}
+		Alumno alumnoAct = alumnoRepository.save(alumno);
+		response.setStatus("ERROR");
+		response.setMensaje("Ciclo no existente :c");
+		response.setData(alumnoAct);
+//		Optional<Alumno> idAlumno = cicloRepository.findById(alumno.getId());
+//		Optional <Ciclo> optionalCiclo = cicloRepository.findById(alumno.getCiclo());
+//		Ciclo ciclo = null;
+//		Alumno alumno1 = null;
+//		Alumno alumno2 = null;
+//		
+//		
+//		if (optionalCiclo.isPresent()) {
+//
+//			ciclo = optionalCiclo.get();
+//			alumno1 = new Alumno();
+//			alumno1.setId(alumno.getId());
+//			alumno1.setExpediente(alumno.getExpediente()); //convertir el objeto MateriaRequest en Materia
+//			alumno1.setCiclo(ciclo);
+//			alumno1.setNombre(alumno.getNombre());
+//			alumno1.setCurp(alumno.getCurp());
+//			alumno1.setGenero(alumno.getGenero());
+//			alumno1.setCorreo(alumno.getCorreo());
+//			alumno1.setEstatus(alumno.getEstatus());
+//			
+//			alumno2 = alumnoRepository.save(alumno1);
+//			response.setStatus("OK");
+//			response.setMensaje("Guardado correcto :3");
+//			response.setData(alumno2);
+//
+//		} else {
+//			
+//			response.setStatus("ERROR");
+//			response.setMensaje("Ciclo no existente :c");
+//			response.setData(null);
+//
+//		}
 
 		return response;
 	}
 
 
 	@Override
-	public Response<Alumno> guardarAlumno(AlumnoRequest alumno) {
+	public Response<Alumno> guardarAlumno(Alumno alumno) {
 		Response<Alumno> response = new Response<Alumno>();
 
-		Optional <Ciclo> optionalCiclo = cicloRepository.findById(alumno.getCiclo());
-		Ciclo ciclo = null;
-		Alumno alumno1 = null;
-		Alumno alumno2 = null;
+		Alumno alumnoNuevo = alumnoRepository.save(alumno);
+		response.setStatus("ERROR");
+		response.setMensaje("Ciclo no existente :c");
+		response.setData(alumnoNuevo);
 		
-		if (optionalCiclo.isPresent()) {
-
-			ciclo = optionalCiclo.get();
-			alumno1 = new Alumno();
-			alumno1.setExpediente(alumno.getExpediente()); //convertir el objeto MateriaRequest en Materia
-			alumno1.setCiclo(ciclo);
-			alumno1.setNombre(alumno.getNombre());
-			alumno1.setCurp(alumno.getCurp());
-			alumno1.setGenero(alumno.getGenero());
-			alumno1.setCorreo(alumno.getCorreo());
-			alumno1.setEstatus(alumno.getEstatus());
-			
-			alumno2 = alumnoRepository.save(alumno1);
-			response.setStatus("OK");
-			response.setMensaje("Guardado correcto :3");
-			response.setData(alumno2);
-
-		} else {
-			
-			response.setStatus("ERROR");
-			response.setMensaje("Ciclo no existente :c");
-			response.setData(null);
-
-		}
+//		Optional <Ciclo> optionalCiclo = cicloRepository.findById(alumno.getCiclo());
+//		Ciclo ciclo = null;
+//		Alumno alumno1 = null;
+//		Alumno alumno2 = null;
+//		
+//		if (optionalCiclo.isPresent()) {
+//
+//			ciclo = optionalCiclo.get();
+//			alumno1 = new Alumno();
+//			alumno1.setExpediente(alumno.getExpediente()); //convertir el objeto MateriaRequest en Materia
+//			alumno1.setCiclo(ciclo);
+//			alumno1.setNombre(alumno.getNombre());
+//			alumno1.setCurp(alumno.getCurp());
+//			alumno1.setGenero(alumno.getGenero());
+//			alumno1.setCorreo(alumno.getCorreo());
+//			alumno1.setEstatus(alumno.getEstatus());
+//			
+//			alumno2 = alumnoRepository.save(alumno1);
+//			response.setStatus("OK");
+//			response.setMensaje("Guardado correcto :3");
+//			response.setData(alumno2);
+//
+//		} else {
+//			
+//			response.setStatus("ERROR");
+//			response.setMensaje("Ciclo no existente :c");
+//			response.setData(null);
+//
+//		}
 
 		return response;
 	}

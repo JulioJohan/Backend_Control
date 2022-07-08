@@ -120,23 +120,24 @@ public Response<Integer> eliminarGrupo(Integer idGrupo) {
 public Response<Grupo> actualizaGrupo(GrupoRequest grupo) {
 	
 	Response<Grupo> response = new Response<Grupo>();
-	
+	Optional<Grupo> idGrupo =  grupoRepository.findById(grupo.getId());
 	Optional <Ciclo> optionalCiclo = cicloRepository.findById(grupo.getCiclo());
 	
 	Ciclo ciclo = null;
-	Grupo grupo1 = null;
+	Grupo grupo1 = idGrupo.get();
 	Grupo grupo2 = null;
+	
+	
 	
 	if (optionalCiclo.isPresent()) {
 
 		ciclo = optionalCiclo.get();
-		grupo1 = new Grupo();
 		grupo1.setCiclo(ciclo);
 		grupo1.setEstatus(grupo.getEstatus());//convertir el objeto MateriaRequest en Materia
 		grupo1.setGrupo(grupo.getGrupo());
 		grupo2 = grupoRepository.save(grupo1);
 		response.setStatus("OK");
-		response.setMensaje("Guardado correcto :3");
+		response.setMensaje("Actualizado correcto :3");
 		response.setData(grupo2);
 
 	} else {
